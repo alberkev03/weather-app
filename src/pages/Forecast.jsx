@@ -1,5 +1,5 @@
 import Navbar from "../components/Navbar";
-import GetForecast from "../components/GetForecast";
+import GetForecast from "../components/ForecastUI";
 
 const Forecast = () => {
     return (

@@ -1,6 +1,6 @@
 import useGetLocation from "../hooks/GetLocation";
 import useGetWeather from "../hooks/GetWeather";
-const GetForecast = () => {
+const GetActualForecast = () => {
     const { city } = useGetLocation();
     const {
         currentWeather,
@@ -9,9 +9,6 @@ const GetForecast = () => {
         currentRain,
         currentWindSpeed,
         currentWindDirection,
-        hourlyTime,
-        hourlyTemperature,
-        hourlyRain,
     } = useGetWeather();
     return (
         <>
@@ -27,7 +24,8 @@ const GetForecast = () => {
                 <h3>Wind Direction: {currentWindDirection}°</h3>
             </div>
         </>
-    );
+    )
+
 };
 
-export default GetForecast;
+export default GetActualForecast;

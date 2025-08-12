@@ -1,9 +1,13 @@
 import { useState, useEffect } from "react";
 
 const useGetLocation = () => {
-    const [userInput, setUserInput] = useState("cupertino");
-    const [city, setCity] = useState({ name: "", country: "" });
-    const [coords, setCoords] = useState({ lat: null, lon: null });
+    const [userInput, setUserInput] = useState("london");
+    const [city, setCity] = useState({
+        name: "",
+        country: "",
+        lat: null,
+        lon: null,
+    });
 
     useEffect(() => {
         fetch(
@@ -14,14 +18,14 @@ const useGetLocation = () => {
                 if (data.results && data.results.length > 0) {
                     const { name, country, latitude, longitude } =
                         data.results[0];
-                    setCity({ name, country });
-                    setCoords({ lat: latitude, lon: longitude });
+                    setCity({ name, country, lat: latitude, lon: longitude });
                 } else {
-                    setCity({ name: "not found", country: "" });
+                    setCity({ name: "not found"});
                 }
             });
-    },[userInput]);
-    return { userInput, setUserInput, city, coords };
+    }, [userInput]);
+
+    return { userInput, setUserInput, city };
 };
 
 export default useGetLocation;

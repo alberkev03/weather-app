@@ -1,5 +1,4 @@
-
-import Search from "./Search.jsx";
+import SearchForm from "./search/SearchForm";
 const Navbar = () => {
     return (
         <div id="navbar">
@@ -8,12 +7,7 @@ const Navbar = () => {
                     <h3>Weather for </h3>
                 </div>
                 <div id="right">
-                    <form>
-                        <Search />
-                        <button type="submit">
-                            <i class="fa-solid fa-magnifying-glass"></i>
-                        </button>
-                    </form>
+                    <SearchForm />
                 </div>
             </nav>
         </div>

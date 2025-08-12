@@ -2,7 +2,7 @@ import useGetLocation from "./GetLocation";
 import { useState, useEffect } from "react";
 
 const useGetWeather = () => {
-    const { coords } = useGetLocation();
+    const { city } = useGetLocation();
     const [currentWeather, setCurrentWeather] = useState(null);
     const [currentFeelsLike, setCurrentFeelsLike] = useState(null);
     const [currentHumidity, setCurrentHumidity] = useState(null);
@@ -15,12 +15,11 @@ const useGetWeather = () => {
     const [hourlyRain, setHourlyRain] = useState([]);
 
     useEffect(() => {
-        if (coords.lat && coords.lon) {
-            fetch(
-                `https://api.open-meteo.com/v1/forecast?latitude=${coords.lat}&longitude=${coords.lon}&hourly=temperature_2m,precipitation_probability&current=temperature_2m,relative_humidity_2m,precipitation,wind_direction_10m,wind_speed_10m,apparent_temperature`
-            )
-            .then((response)=> response.json())
-            .then((data)=>{
+        fetch(
+            `https://api.open-meteo.com/v1/forecast?latitude=${city.lat}&longitude=${city.lon}&hourly=temperature_2m,precipitation_probability&current=temperature_2m,relative_humidity_2m,precipitation,wind_direction_10m,wind_speed_10m,apparent_temperature`
+        )
+            .then((response) => response.json())
+            .then((data) => {
                 setCurrentWeather(data.current.temperature_2m);
                 setCurrentFeelsLike(data.current.apparent_temperature);
                 setCurrentHumidity(data.current.relative_humidity_2m);
@@ -32,9 +31,9 @@ const useGetWeather = () => {
                 setHourlyTemperature(data.hourly.temperature_2m);
                 setHourlyRain(data.hourly.precipitation_probability);
             })
-            .catch((err)=>console.log(err))
-        }
-    },[coords]);
+            .catch((err) => console.log(err));
+    }, [city.lat, city.lon]);
+
     return {
         currentWeather,
         currentFeelsLike,
@@ -42,9 +41,10 @@ const useGetWeather = () => {
         currentRain,
         currentWindSpeed,
         currentWindDirection,
+
         hourlyTime,
         hourlyTemperature,
-        hourlyRain
+        hourlyRain,
     };
 };
 
